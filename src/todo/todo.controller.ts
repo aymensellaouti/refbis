@@ -20,9 +20,9 @@ export class TodoController {
 
   @Get()
   getTodos(
-    @Req() request: Request,
-    @Res() response: Response,
-    @Headers('Authorization') token
+    // @Req() request: Request,
+    // @Res() response: Response,
+    // @Headers('Authorization') token
   ): TodoModel[] {
     // response
     //   .status(HttpStatus.OK)
@@ -40,6 +40,7 @@ export class TodoController {
   }
   private findTodoById(id: string): TodoModel {
     const todo = this.todos.find(todoItem => todoItem.id == id);
+    console.log(todo);
     if (!todo) {
       throw new NotFoundException('Todo Innexistant');
     }
@@ -58,7 +59,7 @@ export class TodoController {
   }
   @Put(':id')
   updateTodo(
-    @Param(':id') id: string,
+    @Param('id') id: string,
     @Body() updatedTodo: Partial<TodoModel>
   ): TodoModel {
     const todo = this.findTodoById(id);
@@ -69,7 +70,7 @@ export class TodoController {
     return todo;
   }
   @Delete(':id')
-  deleteTodo(@Param(':id') id: string): any {
+  deleteTodo(@Param('id') id: string): any {
     const size = this.todos.length;
     this.todos = this.todos.filter(todo => todo.id != id);
     if (this.todos.length == size) {
