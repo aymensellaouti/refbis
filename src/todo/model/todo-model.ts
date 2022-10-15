@@ -1,7 +1,6 @@
-import { v4 as uuidV4} from 'uuid';
 export class TodoModel {
   constructor(
-    public id: string = uuidV4(),
+    public id: string = '',
     public name: string = '',
     public description: string = '',
     public createdAt: Date = new Date(),

@@ -12,10 +12,10 @@ import {
   Res
 } from "@nestjs/common";
 import { TodoModel } from "./model/todo-model";
-import { Request, Response } from "express";
 import { AddTodoDto } from "./dto/add-todo.dto";
 import { UpdateTodoDto } from "./dto/update-todo.dto";
 import { TodoService } from "./todo.service";
+import { isInstance } from "class-validator";
 
 @Controller('todo')
 export class TodoController {
@@ -46,9 +46,11 @@ export class TodoController {
   }
   @Post()
   addTodo(
-    @Body() todo: AddTodoDto
+    @Body() addTodoDto: AddTodoDto
   ): TodoModel {
-    return this.todoService.addTodo(todo);
+    console.log(addTodoDto);
+    console.log(addTodoDto instanceof AddTodoDto);
+    return this.todoService.addTodo(addTodoDto);
   }
   @Put(':id')
   updateTodo(
