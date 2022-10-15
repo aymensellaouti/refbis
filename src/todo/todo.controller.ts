@@ -13,6 +13,8 @@ import {
 } from "@nestjs/common";
 import { TodoModel } from "./model/todo-model";
 import { Request, Response } from "express";
+import { AddTodoDto } from "./dto/add-todo.dto";
+import { UpdateTodoDto } from "./dto/update-todo.dto";
 
 @Controller('todo')
 export class TodoController {
@@ -48,7 +50,7 @@ export class TodoController {
   }
   @Post()
   addTodo(
-    @Body() todo: Partial<TodoModel>
+    @Body() todo: AddTodoDto
   ): TodoModel {
     const { name, description } = todo;
     const newTodo = new TodoModel();
@@ -60,7 +62,7 @@ export class TodoController {
   @Put(':id')
   updateTodo(
     @Param('id') id: string,
-    @Body() updatedTodo: Partial<TodoModel>
+    @Body() updatedTodo: UpdateTodoDto
   ): TodoModel {
     const todo = this.findTodoById(id);
     const { name, description, status } = updatedTodo;
