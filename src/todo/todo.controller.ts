@@ -16,6 +16,7 @@ import { AddTodoDto } from "./dto/add-todo.dto";
 import { UpdateTodoDto } from "./dto/update-todo.dto";
 import { TodoService } from "./todo.service";
 import { isInstance } from "class-validator";
+import { Request } from "express";
 
 @Controller('todo')
 export class TodoController {
@@ -44,23 +45,30 @@ export class TodoController {
   private findTodoById(id: string): TodoModel {
    return this.todoService.getTodo(id);
   }
-  @Post()
+  @Post('')
   addTodo(
     @Body() addTodoDto: AddTodoDto
   ): TodoModel {
+    console.log('Post TODO');
     console.log(addTodoDto);
     console.log(addTodoDto instanceof AddTodoDto);
-    return this.todoService.addTodo(addTodoDto);
+    const user = 1234;
+    return this.todoService.addTodo(addTodoDto, user);
   }
   @Put(':id')
   updateTodo(
     @Param('id') id: string,
-    @Body() updatedTodo: UpdateTodoDto
+    @Body() updatedTodo: UpdateTodoDto,
+    @Req() req: Request
   ): TodoModel {
-    return this.todoService.updateTodo(id, updatedTodo);
+    const user = req['userId'];
+    return this.todoService.updateTodo(id, updatedTodo, user);
   }
   @Delete(':id')
-  deleteTodo(@Param('id') id: string): any {
-    return this.todoService.deleteTodo(id);
+  deleteTodo(
+    @Param('id') id: string,
+    @Req() req: Request): any {
+    const user = req['userId'];
+    return this.todoService.deleteTodo(id, user);
   }
 }

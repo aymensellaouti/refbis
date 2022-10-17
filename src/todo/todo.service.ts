@@ -1,4 +1,4 @@
-import { Inject, Injectable, NotFoundException } from "@nestjs/common";
+import { ForbiddenException, Inject, Injectable, NotFoundException } from "@nestjs/common";
 import { TodoModel } from "./model/todo-model";
 import { AddTodoDto } from "./dto/add-todo.dto";
 import { UpdateTodoDto } from "./dto/update-todo.dto";
@@ -15,30 +15,36 @@ export class TodoService {
     return this.findTodoById(id);
   }
   addTodo(
-    todo: AddTodoDto
+    todo: AddTodoDto,
+    user: number
   ): TodoModel {
     const { name, description } = todo;
     const newTodo = new TodoModel();
     newTodo.id = this.uuid();
     newTodo.name = name;
     newTodo.description =description;
+    newTodo.owner = user;
     this.todos.push(newTodo);
     return newTodo;
   }
   updateTodo(
     id: string,
-    updatedTodo: UpdateTodoDto
+    updatedTodo: UpdateTodoDto,
+    user = 0
   ): TodoModel {
     const todo = this.findTodoById(id);
+    if (todo.owner != user) {
+      throw new ForbiddenException('Vous n avez pas le droit de modifier ce todo');
+    }
     const { name, description, status } = updatedTodo;
     todo.name =  name ?? todo.name;
     todo.description =  description ?? todo.description;
     todo.status =  status ?? todo.status;
     return todo;
   }
-  deleteTodo(id: string): any {
+  deleteTodo(id: string, user = 0): any {
     const size = this.todos.length;
-    this.todos = this.todos.filter(todo => todo.id != id);
+    this.todos = this.todos.filter(todo => todo.id != id || (todo.id == id && todo.owner != user));
     if (this.todos.length == size) {
       throw new NotFoundException('Todo innexistant');
     }

@@ -5,6 +5,7 @@ export class TodoModel {
     public description: string = '',
     public createdAt: Date = new Date(),
     public status: TodoStatusEnum = TodoStatusEnum.waiting,
+    public owner: number = 0
 ) {}
 }
 
