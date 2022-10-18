@@ -2,6 +2,8 @@ import { Body, Controller, Get, ParseArrayPipe, Post } from "@nestjs/common";
 import { AppService } from './app.service';
 import { ArrayToStringPipe } from "./pipes/array-to-string.pipe";
 import { FreezePipe } from "./pipes/freeze.pipe";
+import * as dateMath from 'date-arithmetic';
+import * as moment from 'moment';
 
 @Controller()
 export class AppController {
@@ -9,6 +11,15 @@ export class AppController {
 
   @Get()
   getHello(): string {
+    const date = new Date;
+    // console.log('date', date);
+    // console.log('startOf', dateMath.startOf(new Date, 'day'));
+    // console.log('startOf', dateMath.startOf(new Date, 'day', 'week'));
+    // console.log('startOf', dateMath.startOf(new Date, 'day', 'month'));
+    // const newDate = dateMath.add(date, 50, 'day');
+    // console.log('newdate', newDate);
+    // console.log('moment',moment().startOf('day'));
+    // console.log('moment',moment().startOf('day').toDate());
     return this.appService.getHello();
   }
   @Post('skills')

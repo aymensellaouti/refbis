@@ -9,6 +9,7 @@ import { secondMiddleware } from "./middlwares/functions-middleware.middleware";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { getConfig } from "./config/get.config";
 import { TypeOrmModule } from "@nestjs/typeorm";
+import { TodoEntity } from "./todo/entities/todo.entity";
 
 @Module({
   imports: [FirstModule, TodoModule, CommonModule,
@@ -25,7 +26,7 @@ import { TypeOrmModule } from "@nestjs/typeorm";
           username: configService.get('db.DB_USERNAME'),
           password: configService.get('db.DB_PASSWORD'),
           database: configService.get('db.DB_NAME'),
-          entities: [],
+          autoLoadEntities: true,
           synchronize: true,
           logging: true
         };

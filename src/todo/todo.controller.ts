@@ -18,7 +18,10 @@ import { TodoService } from "./todo.service";
 import { isInstance } from "class-validator";
 import { Request } from "express";
 
-@Controller('todo')
+@Controller({
+  path:'todo',
+  version: '1'
+})
 export class TodoController {
   todos: TodoModel[] = [];
   constructor(private readonly todoService: TodoService) {}
