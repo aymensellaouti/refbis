@@ -10,6 +10,9 @@ import { ConfigModule, ConfigService } from "@nestjs/config";
 import { getConfig } from "./config/get.config";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { TodoEntity } from "./todo/entities/todo.entity";
+import { CvModule } from './cv/cv.module';
+import { UserModule } from './user/user.module';
+import { SkillModule } from './skill/skill.module';
 
 @Module({
   imports: [FirstModule, TodoModule, CommonModule,
@@ -32,7 +35,10 @@ import { TodoEntity } from "./todo/entities/todo.entity";
         };
       },
       inject: [ConfigService]
-    })
+    }),
+    CvModule,
+    UserModule,
+    SkillModule
   ],
   controllers: [AppController],
   providers: [AppService]
