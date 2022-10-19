@@ -65,3 +65,4 @@ export class CvController {
     return this.cvService.remove(+id);
   }
 }
+

@@ -9,13 +9,13 @@ import { secondMiddleware } from "./middlwares/functions-middleware.middleware";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { getConfig } from "./config/get.config";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { TodoEntity } from "./todo/entities/todo.entity";
 import { CvModule } from './cv/cv.module';
 import { UserModule } from './user/user.module';
 import { SkillModule } from './skill/skill.module';
 import { MulterModule } from "@nestjs/platform-express";
 import { ServeStaticModule } from "@nestjs/serve-static";
 import {join} from 'path';
+import { AuthModule } from './auth/auth.module';
 @Module({
   imports: [FirstModule, TodoModule, CommonModule,
     ConfigModule.forRoot({
@@ -48,7 +48,8 @@ import {join} from 'path';
         index: false
       }
     }),
-    MulterModule.register()
+    MulterModule.register(),
+    AuthModule
   ],
   controllers: [AppController],
   providers: [AppService]
