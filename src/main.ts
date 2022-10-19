@@ -9,6 +9,10 @@ async function bootstrap() {
   dotenv.config();
   console.log('ENV TEST', process.env.TEST);
   const app = await NestFactory.create(AppModule);
+  // app.useStaticAssets(join(__dirname, '..', 'public'), {
+  //   index: false,
+  //   prefix: '/public',
+  // });
   const configService = app.get<ConfigService>(ConfigService);
   console.log('Port', configService.get('port'));
   app.enableCors({

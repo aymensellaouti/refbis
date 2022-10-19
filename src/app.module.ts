@@ -14,7 +14,8 @@ import { CvModule } from './cv/cv.module';
 import { UserModule } from './user/user.module';
 import { SkillModule } from './skill/skill.module';
 import { MulterModule } from "@nestjs/platform-express";
-
+import { ServeStaticModule } from "@nestjs/serve-static";
+import {join} from 'path';
 @Module({
   imports: [FirstModule, TodoModule, CommonModule,
     ConfigModule.forRoot({
@@ -41,6 +42,12 @@ import { MulterModule } from "@nestjs/platform-express";
     CvModule,
     UserModule,
     SkillModule,
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'public'),
+      serveStaticOptions: {
+        index: false
+      }
+    }),
     MulterModule.register()
   ],
   controllers: [AppController],

@@ -10,15 +10,15 @@ import { Response } from "express";
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get('public/:folder/:filePath') getFile(
-    @Res() res: Response,
-    @Param('filePath') path: string,
-    @Param('folder') folder: string,
-    ) {
-    console.log('path', path);
-    console.log('path', folder);
-    res.sendFile(path, { root: `public/${folder}`});
-  }
+  // @Get('static/:folder/:filePath') getFile(
+  //   @Res() res: Response,
+  //   @Param('filePath') path: string,
+  //   @Param('folder') folder: string,
+  //   ) {
+  //   console.log('path', path);
+  //   console.log('path', folder);
+  //   res.sendFile(path, { root: `public/${folder}`});
+  // }
 
   @Get()
   getHello(): string {
