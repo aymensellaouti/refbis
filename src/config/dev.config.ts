@@ -7,5 +7,9 @@ export const devConfig = {
     'DB_NAME': 'rt9bis',
   },
   port: 3000,
+  auth: {
+    secret: 'MyJWTSECRET',
+    expire: 3600
+  }
 
 }

@@ -24,6 +24,7 @@ export class Cv extends TimeStampEntity{
   user: User;
   @ManyToMany(() => Skill, null, {
     // cascade: ['insert']
+    eager: true
   })
   @JoinTable({
     name: 'cv_skill',

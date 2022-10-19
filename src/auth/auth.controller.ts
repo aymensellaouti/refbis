@@ -3,6 +3,7 @@ import { RegisterDto } from "./dto/register.dto";
 import { LoginDto } from "./dto/login.dto";
 import { AuthService } from "./auth.service";
 import { User } from "../user/entities/user.entity";
+import { LoginResponseDto } from "./dto/login-response.dto";
 
 
 @Controller('auth')
@@ -13,8 +14,7 @@ export class AuthController {
     return this.authService.register(registerDto);
   }
   @Post('login')
-  @Post('login')
-  login(@Body() loginDto: LoginDto): Promise<User> {
+  login(@Body() loginDto: LoginDto): Promise<LoginResponseDto> {
     return this.authService.login(loginDto);
   }
 }

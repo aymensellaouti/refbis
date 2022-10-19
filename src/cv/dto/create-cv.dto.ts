@@ -1,6 +1,7 @@
 import { Column } from "typeorm";
 import { IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 import { Type } from "class-transformer";
+import { User } from "../../user/entities/user.entity";
 
 export class CreateCvDto {
   @IsString()
@@ -14,4 +15,5 @@ export class CreateCvDto {
   job: string;
 
   path: string;
+  user: User;
 }
