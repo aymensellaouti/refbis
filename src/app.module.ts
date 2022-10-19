@@ -13,6 +13,7 @@ import { TodoEntity } from "./todo/entities/todo.entity";
 import { CvModule } from './cv/cv.module';
 import { UserModule } from './user/user.module';
 import { SkillModule } from './skill/skill.module';
+import { MulterModule } from "@nestjs/platform-express";
 
 @Module({
   imports: [FirstModule, TodoModule, CommonModule,
@@ -31,14 +32,16 @@ import { SkillModule } from './skill/skill.module';
           database: configService.get('db.DB_NAME'),
           autoLoadEntities: true,
           synchronize: true,
-          logging: true
+          logging: true,
+          cache: true
         };
       },
       inject: [ConfigService]
     }),
     CvModule,
     UserModule,
-    SkillModule
+    SkillModule,
+    MulterModule.register()
   ],
   controllers: [AppController],
   providers: [AppService]
@@ -53,6 +56,5 @@ export class AppModule implements NestModule {
       .apply(secondMiddleware).forRoutes("")
     // .apply(AuthMiddleware).forRoutes(TodoController)
     ;
-
   }
 }

@@ -12,7 +12,6 @@ export class CreateCvDto {
   @IsNotEmpty()
   @IsString()
   job: string;
-  @IsOptional()
-  @IsString()
+
   path: string;
 }

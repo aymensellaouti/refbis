@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { AfterInsert, AfterRemove, AfterUpdate, BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 import { TodoStatusEnum } from "../model/todo-model";
 import { TimeStampEntity } from "../../generics/entites/time-stamp.entity";
 
@@ -20,4 +20,22 @@ export class TodoEntity extends TimeStampEntity{
     default: TodoStatusEnum.waiting
   })
   status: TodoStatusEnum;
+
+  @AfterInsert()
+  afterCreateTodo() {
+    console.log('After Insert');
+    console.log(`New Todo created : `);
+  }
+  @BeforeInsert()
+  beforeCreateTodo() {
+    console.log(`Before create Todo : `, this);
+  }
+  @AfterUpdate()
+  afterUpdateTodo() {
+    console.log(`Todo with id: ${this.id} was updated new value : `, this);
+  }
+  @AfterRemove()
+  afterRemoveTodo() {
+    console.log(`Todo with id: ${this.id} was updated new value : `, this);
+  }
 }

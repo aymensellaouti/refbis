@@ -86,6 +86,7 @@ export class TodoService {
     if (page) {
       paginateQb(qb, page, nb);
     }
+    qb.cache(20000)
     return qb.getMany();
   }
   testFindQB(): Promise<TodoEntity[]> {

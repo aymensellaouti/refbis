@@ -13,7 +13,7 @@ export class GenericCrudService<Entity extends HasIdInterface> {
     private readonly repository: Repository<Entity>
   ) {
   }
-  create(addDto): Promise<TodoEntity> {
+  create(addDto): Promise<Entity> {
     return this.repository.save(addDto);
   }
   async update(id, updateDto): Promise<Entity> {

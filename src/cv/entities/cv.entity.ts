@@ -2,8 +2,6 @@ import { Column, Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn, JoinTabl
 import { TimeStampEntity } from "../../generics/entites/time-stamp.entity";
 import { User } from "../../user/entities/user.entity";
 import { Skill } from "../../skill/entities/skill.entity";
-
-
 @Entity('cv')
 export class Cv extends TimeStampEntity{
   @PrimaryGeneratedColumn()
