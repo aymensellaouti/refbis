@@ -4,10 +4,11 @@ import { CvController } from './cv.controller';
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { Skill } from "../skill/entities/skill.entity";
 import { Cv } from "./entities/cv.entity";
+import { CvListener } from "./listener/cv.listener";
 
 @Module({
   controllers: [CvController],
-  providers: [CvService],
+  providers: [CvService, CvListener],
   imports: [TypeOrmModule.forFeature([Cv])]
 })
 export class CvModule {}

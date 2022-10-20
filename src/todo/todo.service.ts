@@ -12,6 +12,7 @@ import { PaginateDto } from "./dto/paginate.dto";
 import { paginateQb } from "../generics/qb/paginate.qb";
 import { DateIntervalDto } from "./dto/date-interval.dto";
 import { dateIntervalQb } from "../generics/qb/date-Interval.qb";
+import { Cron, CronExpression } from "@nestjs/schedule";
 
 @Injectable()
 export class TodoService {
@@ -168,5 +169,15 @@ export class TodoService {
       throw new NotFoundException('Todo Innexistant');
     }
     return todo;
+  }
+
+  @Cron(CronExpression.EVERY_DAY_AT_1AM)
+  updateStatus() {
+    const now = new Date();
+    const qb = this.todoRepository.createQueryBuilder();
+    qb.update(TodoEntity)
+      .set({status: TodoStatusEnum.aborted})
+      .where("createdAt < :date", {date: new Date(now.setMonth(now.getMonth() - 1))})
+      .execute();
   }
 }

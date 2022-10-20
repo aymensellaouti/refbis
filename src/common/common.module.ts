@@ -1,5 +1,6 @@
-import { Global, Module } from "@nestjs/common";
+import { CacheModule, Global, Module } from "@nestjs/common";
 import { v4 as uuid} from 'uuid';
+import { CronService } from "../generics/services/cron/cron.service";
 
 const uuidProvider = {
   useValue: uuid,
@@ -8,10 +9,18 @@ const uuidProvider = {
 
 @Module({
   providers: [
-    uuidProvider
+    uuidProvider,
+    CronService
+  ],
+  imports: [
+    CacheModule.register({
+      ttl: 0
+    })
   ],
   exports: [
-    uuidProvider
+    uuidProvider,
+    CacheModule,
+    CronService
   ]
 })
 @Global()

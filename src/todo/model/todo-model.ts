@@ -12,5 +12,6 @@ export class TodoModel {
 export enum TodoStatusEnum {
   'actif' = 'En cours',
   'waiting' = 'En attente',
-  'done' = 'Finalisé'
+  'done' = 'Finalisé',
+  'aborted' = 'Annulé'
 }

@@ -5,10 +5,13 @@ import { FreezePipe } from "./pipes/freeze.pipe";
 import * as dateMath from 'date-arithmetic';
 import * as moment from 'moment';
 import { Response } from "express";
+import { CronExpression, SchedulerRegistry } from "@nestjs/schedule";
+import { CronJob } from "cron";
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly appService: AppService,
+              private schedulerRegistry: SchedulerRegistry) {}
 
   // @Get('static/:folder/:filePath') getFile(
   //   @Res() res: Response,
@@ -22,6 +25,12 @@ export class AppController {
 
   @Get()
   getHello(): string {
+    const job = new CronJob('* * * * * *', () => {
+      console.log('i am dynamique CJ');
+    });
+    this.schedulerRegistry.addCronJob('firstJob', job);
+    job.start();
+    setTimeout(()=> {job.stop()}, 5000);
     const date = new Date;
     // console.log('date', date);
     // console.log('startOf', dateMath.startOf(new Date, 'day'));

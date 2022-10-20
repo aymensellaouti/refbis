@@ -1,4 +1,4 @@
-import { MiddlewareConsumer, Module, NestModule, RequestMethod } from "@nestjs/common";
+import { CacheModule, MiddlewareConsumer, Module, NestModule, RequestMethod } from "@nestjs/common";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import { FirstModule } from "./first.module";
@@ -16,6 +16,9 @@ import { MulterModule } from "@nestjs/platform-express";
 import { ServeStaticModule } from "@nestjs/serve-static";
 import {join} from 'path';
 import { AuthModule } from './auth/auth.module';
+import { EventEmitterModule } from "@nestjs/event-emitter";
+import { ScheduleModule } from "@nestjs/schedule";
+import { CronService } from './generics/services/cron/cron.service';
 @Module({
   imports: [FirstModule, TodoModule, CommonModule,
     ConfigModule.forRoot({
@@ -49,7 +52,9 @@ import { AuthModule } from './auth/auth.module';
       }
     }),
     MulterModule.register(),
-    AuthModule
+    AuthModule,
+    EventEmitterModule.forRoot(),
+    ScheduleModule.forRoot()
   ],
   controllers: [AppController],
   providers: [AppService]
